@@ -1,9 +1,13 @@
 const API_BASE = "https://lustosasports-api.sportslustosa.workers.dev";
-const ADMIN_TOKEN = "SEU_ADMIN_TOKEN_AQUI";
+
+export function getToken(): string {
+  return localStorage.getItem("ADMIN_TOKEN") || "";
+}
 
 function getHeaders(json = true): HeadersInit {
+  const token = getToken();
   const headers: HeadersInit = {
-    Authorization: `Bearer ${ADMIN_TOKEN}`,
+    Authorization: `Bearer ${token}`,
   };
   if (json) {
     headers["Content-Type"] = "application/json";
@@ -20,12 +24,13 @@ async function handleResponse(res: Response) {
 }
 
 export async function uploadFile(file: File): Promise<{ url: string; key: string }> {
+  const token = getToken();
   const formData = new FormData();
   formData.append("file", file);
 
   const res = await fetch(`${API_BASE}/api/upload`, {
     method: "POST",
-    headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+    headers: { Authorization: `Bearer ${token}` },
     body: formData,
   });
 
@@ -37,6 +42,7 @@ export async function fetchProducts(params?: {
   size?: string;
   search?: string;
 }): Promise<{ items: any[] }> {
+  const token = getToken();
   const searchParams = new URLSearchParams();
   if (params?.category) searchParams.set("category", params.category);
   if (params?.size) searchParams.set("size", params.size);
@@ -44,7 +50,7 @@ export async function fetchProducts(params?: {
 
   const qs = searchParams.toString();
   const res = await fetch(`${API_BASE}/api/products${qs ? `?${qs}` : ""}`, {
-    headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+    headers: { Authorization: `Bearer ${token}` },
   });
 
   return handleResponse(res);
