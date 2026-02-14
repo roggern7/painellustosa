@@ -18,10 +18,10 @@ export function hasToken(): boolean {
 
 export async function validateToken(token: string): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE}/api/products`, {
+    const res = await fetch(`${API_BASE}/api/admin/ping`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return res.ok;
+    return res.status === 200;
   } catch {
     return false;
   }
