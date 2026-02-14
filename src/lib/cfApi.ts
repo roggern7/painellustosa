@@ -1,7 +1,9 @@
+import { ADMIN_TOKEN } from "@/config/adminAuth";
+
 const API_BASE = "https://lustosasports-api.sportslustosa.workers.dev";
 
 export function getToken(): string {
-  return localStorage.getItem("ADMIN_TOKEN") || "";
+  return ADMIN_TOKEN;
 }
 
 function getHeaders(json = true): HeadersInit {
