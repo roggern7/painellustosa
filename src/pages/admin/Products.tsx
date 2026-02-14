@@ -183,7 +183,7 @@ export default function AdminProducts() {
     <AdminLayout>
       <div className="space-y-8">
         <div>
-          <h1 className="text-3xl font-black text-foreground tracking-tight">GERENCIAR CATÁLOGO</h1>
+          <h1 className="text-3xl font-black text-primary tracking-tight">GERENCIAR CATÁLOGO</h1>
           <p className="text-muted-foreground">Adicione, edite ou remova produtos do seu catálogo</p>
         </div>
 
@@ -294,7 +294,7 @@ export default function AdminProducts() {
               )}
               <Button
                 type="submit"
-                className="flex-1 h-12 bg-destructive hover:bg-destructive/90 text-destructive-foreground font-bold"
+                className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-bold"
                 disabled={saving}
               >
                 {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}

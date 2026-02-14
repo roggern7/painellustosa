@@ -26,7 +26,7 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
             <img src={logoLustosa} alt="Lustosa Sports" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h1 className="font-bold text-sidebar-foreground">Lustosa Sports</h1>
+            <h1 className="font-bold text-primary">Lustosa Sports</h1>
             <p className="text-xs text-sidebar-foreground/60">Administração</p>
           </div>
         </Link>
