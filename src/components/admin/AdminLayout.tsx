@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Package, FolderOpen, Menu } from 'lucide-react';
+import { Package, Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import logoLustosa from '@/assets/logo-lustosa.jpg';
@@ -12,7 +12,6 @@ interface AdminLayoutProps {
 
 const navItems = [
   { href: '/admin/products', label: 'Produtos', icon: Package },
-  { href: '/admin/categories', label: 'Categorias', icon: FolderOpen },
 ];
 
 function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
