@@ -8,7 +8,7 @@ import Catalogo from "./pages/Catalogo";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/admin/Login";
 import AdminProducts from "./pages/admin/Products";
-import AdminCategories from "./pages/admin/Categories";
+import RequireAuth from "./components/admin/RequireAuth";
 
 const queryClient = new QueryClient();
 
@@ -22,9 +22,8 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminProducts />} />
-          <Route path="/admin/products" element={<AdminProducts />} />
-          <Route path="/admin/categories" element={<AdminCategories />} />
+          <Route path="/admin" element={<RequireAuth><AdminProducts /></RequireAuth>} />
+          <Route path="/admin/products" element={<RequireAuth><AdminProducts /></RequireAuth>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
