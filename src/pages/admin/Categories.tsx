@@ -21,9 +21,9 @@ import {
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Search, Loader2 } from 'lucide-react';
+import { getToken } from '@/lib/cfApi';
 
 const API_BASE = "https://lustosasports-api.sportslustosa.workers.dev";
-const ADMIN_TOKEN = "SEU_ADMIN_TOKEN_AQUI";
 
 interface Category {
   id: string;
@@ -51,8 +51,9 @@ export default function AdminCategories() {
 
   const fetchCategories = async () => {
     try {
+      const token = getToken();
       const res = await fetch(`${API_BASE}/api/categories`, {
-        headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error(`Erro ${res.status}`);
       const data = await res.json();
@@ -107,10 +108,11 @@ export default function AdminCategories() {
     };
 
     try {
+      const token = getToken();
       if (editingCategory) {
         const res = await fetch(`${API_BASE}/api/categories/${editingCategory.id}`, {
           method: 'PUT',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${ADMIN_TOKEN}` },
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify(categoryData),
         });
         if (!res.ok) throw new Error(await res.text());
@@ -118,7 +120,7 @@ export default function AdminCategories() {
       } else {
         const res = await fetch(`${API_BASE}/api/categories`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${ADMIN_TOKEN}` },
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
           body: JSON.stringify(categoryData),
         });
         if (!res.ok) throw new Error(await res.text());
@@ -139,9 +141,10 @@ export default function AdminCategories() {
     if (!confirm('Tem certeza que deseja excluir esta categoria?')) return;
 
     try {
+      const token = getToken();
       const res = await fetch(`${API_BASE}/api/categories/${id}`, {
         method: 'DELETE',
-        headers: { Authorization: `Bearer ${ADMIN_TOKEN}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error(await res.text());
       toast.success('Categoria excluída!');
