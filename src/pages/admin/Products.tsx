@@ -227,16 +227,34 @@ export default function AdminProducts() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="sizes" className="text-foreground font-medium">Numerações disponíveis *</Label>
-              <Input
-                id="sizes"
-                value={form.sizes}
-                onChange={(e) => setForm(f => ({ ...f, sizes: e.target.value }))}
-                placeholder="Ex: 39, 40, 41, 42"
-                className="bg-background border-border text-foreground placeholder:text-muted-foreground h-12"
-              />
+              <Label className="text-foreground font-medium">Numerações disponíveis *</Label>
+              <div className="flex flex-wrap gap-2">
+                {['35', '36', '38.5', '39.5', '40.5'].map((size) => {
+                  const selected = form.sizes.split(',').map(s => s.trim()).filter(Boolean).includes(size);
+                  return (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => {
+                        const current = form.sizes.split(',').map(s => s.trim()).filter(Boolean);
+                        const next = selected
+                          ? current.filter(s => s !== size)
+                          : [...current, size].sort((a, b) => parseFloat(a) - parseFloat(b));
+                        setForm(f => ({ ...f, sizes: next.join(', ') }));
+                      }}
+                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors border ${
+                        selected
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'bg-background text-foreground border-border hover:bg-secondary'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </div>
               <p className="text-xs text-muted-foreground">
-                Separe os tamanhos por vírgula. Ex: 39, 40, 41, 42
+                Clique para selecionar as numerações disponíveis
               </p>
             </div>
 
