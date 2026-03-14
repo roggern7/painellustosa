@@ -229,7 +229,7 @@ export default function AdminProducts() {
             <div className="space-y-2">
               <Label className="text-foreground font-medium">Numerações disponíveis *</Label>
               <div className="flex flex-wrap gap-2">
-                {['35', '36', '37', '38', '38.5', '39', '39.5', '40', '40.5', '41', '42', '43', '44', '45'].map((size) => {
+                {['35', '36', '37', '38', '38.5', '39', '39.5', '40', '40.5', '41', '42', '43', '44'].map((size) => {
                   const selected = form.sizes.split(',').map(s => s.trim()).filter(Boolean).includes(size);
                   return (
                     <button
