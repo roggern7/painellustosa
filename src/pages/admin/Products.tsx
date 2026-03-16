@@ -230,13 +230,14 @@ export default function AdminProducts() {
               <Label className="text-foreground font-medium">Numerações disponíveis *</Label>
               <div className="flex flex-wrap gap-2">
                 {['35', '36', '37', '38', '38.5', '39', '39.5', '40', '40.5', '41', '42', '43', '44'].map((size) => {
-                  const selected = form.sizes.split(',').map(s => s.trim()).filter(Boolean).includes(size);
+                  const isEsgotado = form.sizes.trim() === 'Esgotado';
+                  const selected = !isEsgotado && form.sizes.split(',').map(s => s.trim()).filter(Boolean).includes(size);
                   return (
                     <button
                       key={size}
                       type="button"
                       onClick={() => {
-                        const current = form.sizes.split(',').map(s => s.trim()).filter(Boolean);
+                        const current = form.sizes.split(',').map(s => s.trim()).filter(s => s && s !== 'Esgotado');
                         const next = selected
                           ? current.filter(s => s !== size)
                           : [...current, size].sort((a, b) => parseFloat(a) - parseFloat(b));
@@ -252,6 +253,20 @@ export default function AdminProducts() {
                     </button>
                   );
                 })}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const isEsgotado = form.sizes.trim() === 'Esgotado';
+                    setForm(f => ({ ...f, sizes: isEsgotado ? '' : 'Esgotado' }));
+                  }}
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors border ${
+                    form.sizes.trim() === 'Esgotado'
+                      ? 'bg-destructive text-destructive-foreground border-destructive'
+                      : 'bg-background text-destructive border-destructive/50 hover:bg-destructive/10'
+                  }`}
+                >
+                  Esgotado
+                </button>
               </div>
               <p className="text-xs text-muted-foreground">
                 Clique para selecionar as numerações disponíveis
